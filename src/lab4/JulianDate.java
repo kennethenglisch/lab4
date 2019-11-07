@@ -21,43 +21,13 @@ public interface JulianDate {
 	 * @important for all we should ask if the year was an leap year or not
 	 *
 	 * @important remember to decide on how to start counting years
-	 * 
-	 * add 
 	 */
 	
-	// setting things
-//	public void setDay(int day, boolean julian);
-//	public void setYear(int year);
-	
-	public void setJulianDate(int year, int day);
-	 
-//	public void setGregorianMonth(int month);
-//	
-//	public void setGregorianDate(int year, int month, int day);
-	
-	
 	// getting things
-	public int getWeekday(int date);
-//	public int getYear();
+	public String getWeekday(int date);
 	
-	public int getJulianDay();
-	public int[] getJulianDate();
-	
-	public int calculateDate();
-	//public int getJulianYear();
-	
-//	public int getGregorianDay();
-//	public int getGregorianMonth();
-//	public int[] getGregorianDate();
-	//public int getGregorianYear();
-	
-	// calc everything
-//	public int calcJulianDay(int gregorianDay, int gregorianMonth);
-//	public int calcJulianDate(int gregorianDay, int gregorianMonth, int gregorianYear);
-//	
-//	public int calcGregorianDayMonth(int julianDay);
-//	public int calcGregorianDate(int julianDay, int julianYear);
-//	
+	public int calcJD(int day, int month, int year, boolean bc);
+
 	
 	/**
 	 * methods:
