@@ -2,7 +2,8 @@ package lab4;
 
 public class MetricDate extends OurJulianDate {
 
-	long days;
+	int year, month, day, julianDay;
+	
 	
 	public MetricDate() {
 		
@@ -10,6 +11,10 @@ public class MetricDate extends OurJulianDate {
 
 	public static void main(String[] args) {
 		MetricDate md = new MetricDate();
+	//	OurJulianDate ojd = new OurJulianDate();
+		
+		//md.convToMetric(2451288);
+		md.convToJul(88, 2, 2451);
 
 	}	
 	
@@ -30,9 +35,18 @@ public class MetricDate extends OurJulianDate {
 	 * April 19th -> Day: 319
 	 */
 	
-	public void convToJul() 
+	public void convToJul(int day, int month, int year) 
 	{
-		
+		julianDay = year * 1000 + month * 100 + day;
+		System.out.println(julianDay);
+	}
+	
+	public void convToMetric(int date)
+	{
+		year = date / 1000;
+		month = (date - (year * 1000)) / 100;
+		day = (date - (year * 1000) - (month * 100));
+		System.out.println(day + "." + month + "." + year);
 	}
 	
 }
