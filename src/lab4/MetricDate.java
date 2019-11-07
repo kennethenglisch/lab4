@@ -13,7 +13,7 @@ public class MetricDate extends OurJulianDate {
 		MetricDate md = new MetricDate();
 	//	OurJulianDate ojd = new OurJulianDate();
 		
-		//md.convToMetric(2451288);
+		md.convToMetric(2232001);
 		md.convToJul(88, 2, 2451);
 
 	}	
@@ -44,8 +44,11 @@ public class MetricDate extends OurJulianDate {
 	public void convToMetric(int date)
 	{
 		year = date / 1000;
-		month = (date - (year * 1000)) / 100;
+		month = ((date - (year * 1000)) / 100 );
 		day = (date - (year * 1000) - (month * 100));
+		
+		if (month == 0) month += 1;
+		if (day == 0) day +=1 ;
 		System.out.println(day + "." + month + "." + year);
 	}
 	
