@@ -15,7 +15,7 @@ public class OurJulianDate implements JulianDate {
 	
 	private boolean bc, bbc;
 	
-	private Scanner numberScanner;
+	private Scanner numberScanner, menuScanner;
 	
 	public void readDate() 
 	{
@@ -52,7 +52,7 @@ public class OurJulianDate implements JulianDate {
 	 * works for all gregorian dates since November 23rd 4712 BC
 	 * 
 	 * The user can even input the 31st February and it will give the exact date for the 3rd March in this year with this formula.
-	 * This formula even considers the leap years. Have a look at the credtis if you want to know how it works exactly.
+	 * This formula even considers the leap years. Have a look at the credits if you want to know how it works exactly.
 	 * 
 	 * @return Julian Day Number
 	 * 
@@ -129,13 +129,15 @@ public class OurJulianDate implements JulianDate {
 		
 		if (bday == dtoday & bmonth == mtoday) { System.out.println( "\nHAPPY BIRTHDAY BUDDY!" ); }
 		if (daysAlive % 100 == 0) { System.out.println("\nWOW. Your days alive can be cleanly divided by 100."); }
+		
+		menu();
 	}
 	
 	/**
 	 * Calculates the days between two dates
 	 * @return number of days between two dates
 	 */
-	public int daysBetween() 
+	public void daysBetween() 
 	{
 		System.out.println("\nYou can now calculate the amount of days between two dates.\n" + 
 						   "Therefore you have to enter two dates.");
@@ -164,23 +166,49 @@ public class OurJulianDate implements JulianDate {
 		
 		int daysBetween = Math.abs(jd1 - jd2);
 		
-		return daysBetween;
+		System.out.println("There are '" + daysBetween + "' days between the these two dates. [" + 
+				   		   day1 + "." + month1 + "." + year1 + " <-> " + day2 + "." + month2 + "." + year2 + "]");
+		menu();
 	}
 	
+	private void menu() 
+	{
+		System.out.println("\n----------MENU----------");
+		System.out.println("Choose what you want to do by typing the number\n"  +  "of the operation in the console.\n");
+		System.out.println("1 - Calculate the Julian Day Number for a Gregorian Date.");
+		System.out.println("2 - Calculate the number of days between two Dates.");
+		System.out.println("3 - Calculate the number of days you are alive.");
+		System.out.println("4 - Quit the program.");
+		System.out.println("\n--------------------");
+		System.out.print("Choose option: ");
+		
+		
+		int option = menuScanner.nextInt();
+	
+		switch (option) {
+			case 1: readDate();
+					System.out.println("\nYour Date: " + day + "." + month + "." + year);
+					System.out.println("Julian Day Number: " + calcJD(day, month, year, bc));
+					menu();
+					break;
+			
+			case 2: daysBetween();
+					break;
+					
+			case 3: daysAlive();
+					break;
+					
+			case 4: break;
+		}
+	}
 
 	public static void main(String[] args) {
 		
 		OurJulianDate ojd = new OurJulianDate(); 
 		ojd.numberScanner = new Scanner(System.in);
-
-//		ojd.readDate();
-//		System.out.println("\nEntered Date: " + ojd.day + "." + ojd.month + "." + ojd.year + 
-//						   "\nJulian Day: " + ojd.calcJD(ojd.day, ojd.month, ojd.year, ojd.bc));
-//		System.out.println("Weekday of this date: " + ojd.getWeekday(ojd.calcJD(ojd.day, ojd.month, ojd.year, ojd.bc)));
-		
-//		System.out.println(ojd.daysBetween());
-//		ojd.getTodaysDate();
-		ojd.daysAlive();
+		ojd.menuScanner = new Scanner(System.in);
+		ojd.menu();
 	}
+	
 	
 }
