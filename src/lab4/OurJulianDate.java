@@ -179,7 +179,7 @@ public class OurJulianDate implements JulianDate {
 		System.out.println("2 - Calculate the number of days between two Dates.");
 		System.out.println("3 - Calculate the number of days you are alive.");
 		System.out.println("4 - Quit the program.");
-		System.out.println("\n--------------------");
+		System.out.println("\n------------------------");
 		System.out.print("Choose option: ");
 		
 		
