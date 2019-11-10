@@ -5,7 +5,7 @@ import java.util.Scanner;
 
 public class OurJulianDate implements JulianDate {
 
-	private String[] weekdays = {"Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"};
+	private final String[] weekdays = {"Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"};
 	
 	private int day, month, year;
 	
@@ -17,12 +17,15 @@ public class OurJulianDate implements JulianDate {
 	
 	private Scanner numberScanner, menuScanner;
 	
+	private LocalDate ld;
+	
 	public void readDate() 
 	{
 		System.out.println("\nIn the following you will be asked for a date.\nIt is splitted into day, month and year.\n" + 
 						   "Day: number between 1 - 31\n" +
-						   "Month: number between 1 - 12 (January -> 1, ... , December -> 12\n" + 
-						   "Year: number from 1 - infinite\n" + 
+						   "Month: number between 1 - 12 (January -> 1, ... , December -> 12)\n" + 
+						   "Year: number from 1 - infinite (positive numbers)\n" + 
+						   "Note: If you want to enter a negative year, enter it as a positive year and afterwards say it is BC.\n" +
 						   "You will be asked if the year is BC.\n" + 
 						   "If it is the case you have to type 'yes' or 'true' if it is not the case just type 'no'.\n");
 		
@@ -92,7 +95,6 @@ public class OurJulianDate implements JulianDate {
 	 */
 	public void getTodaysDate() 
 	{
-		LocalDate ld = LocalDate.now();
 		dtoday = ld.getDayOfMonth();
 		mtoday = ld.getMonthValue();
 		ytoday = ld.getYear();
@@ -130,7 +132,7 @@ public class OurJulianDate implements JulianDate {
 		if (bday == dtoday & bmonth == mtoday) { System.out.println( "\nHAPPY BIRTHDAY BUDDY!" ); }
 		if (daysAlive % 100 == 0) { System.out.println("\nWOW. Your days alive can be cleanly divided by 100."); }
 		
-		menu();
+		
 	}
 	
 	/**
@@ -168,9 +170,46 @@ public class OurJulianDate implements JulianDate {
 		
 		System.out.println("There are '" + daysBetween + "' days between the these two dates. [" + 
 				   		   day1 + "." + month1 + "." + year1 + " <-> " + day2 + "." + month2 + "." + year2 + "]");
-		menu();
+		
 	}
 	
+	/**
+	 * Printing out yesterdays date in Gregorian date and Julian Day
+	 */
+	public void yesterday() 
+	{
+		LocalDate yesterday = ld.minusDays(1);
+		int yday = yesterday.getDayOfMonth();
+		int ymonth = yesterday.getMonthValue();
+		int yyear = yesterday.getYear();
+		
+		int yjd = calcJD(yday, ymonth, yyear, false);
+		
+		System.out.println("\nYesterdays date:");
+		System.out.println("Gregorian Calendar --> " + yday + "." + ymonth + "." + yyear + "." );
+		System.out.println("Julian Day --> " + yjd);
+	}
+	
+	/**
+	 * Printing out tomorrows date in Gregorian date and Julian Day
+	 */
+	public void tomorrow()
+	{
+		LocalDate tomorrow = ld.plusDays(1);
+		int tday = tomorrow.getDayOfMonth();
+		int tmonth = tomorrow.getMonthValue();
+		int tyear = tomorrow.getYear();
+		
+		int tjd = calcJD(tday, tmonth, tyear, false);
+		
+		System.out.println("\nTomorrows date:");
+		System.out.println("Gregorian Calendar --> " + tday + "." + tmonth + "." + tyear + "." );
+		System.out.println("Julian Day --> " + tjd);
+	}
+	
+	/**
+	 * A simple menu for the users input via the console. The user can decide which method he wants to trigger and use.
+	 */
 	private void menu() 
 	{
 		System.out.println("\n----------MENU----------");
@@ -178,7 +217,9 @@ public class OurJulianDate implements JulianDate {
 		System.out.println("1 - Calculate the Julian Day Number for a Gregorian Date.");
 		System.out.println("2 - Calculate the number of days between two Dates.");
 		System.out.println("3 - Calculate the number of days you are alive.");
-		System.out.println("4 - Quit the program.");
+		System.out.println("4 - Get yesterdays date in Julian Day and Gregorian Date.");
+		System.out.println("5 - Get tomorrows date in Julian Day and Gregorian Date.");
+		System.out.println("6 - Quit the program.");
 		System.out.println("\n------------------------");
 		System.out.print("Choose option: ");
 		
@@ -193,18 +234,29 @@ public class OurJulianDate implements JulianDate {
 					break;
 			
 			case 2: daysBetween();
+					menu();
 					break;
 					
 			case 3: daysAlive();
+					menu();	
 					break;
 					
-			case 4: break;
+			case 4: yesterday();
+					menu();
+					break;
+			
+			case 5: tomorrow();
+					menu();	
+					break;
+			
+			case 6: break;
 		}
 	}
 
 	public static void main(String[] args) {
 		
 		OurJulianDate ojd = new OurJulianDate(); 
+		ojd.ld = LocalDate.now();
 		ojd.numberScanner = new Scanner(System.in);
 		ojd.menuScanner = new Scanner(System.in);
 		ojd.menu();
