@@ -5,19 +5,19 @@ import java.util.Scanner;
 
 public class OurJulianDate implements JulianDate {
 
-	private final String[] weekdays = {"Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"};
+	public final String[] weekdays = {"Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"};
 	
-	private int day, month, year;
+	public int day, month, year;
 	
-	private int dtoday, mtoday, ytoday;
+	public int dtoday, mtoday, ytoday;
 	
-	private int bday, bmonth, byear;
+	public int bday, bmonth, byear;
 	
-	private boolean bc, bbc;
+	public boolean bc, bbc;
 	
-	private Scanner numberScanner, menuScanner;
+	public Scanner numberScanner, menuScanner;
 	
-	private LocalDate ld;
+	public LocalDate ld;
 	
 	public void readDate() 
 	{
@@ -168,7 +168,7 @@ public class OurJulianDate implements JulianDate {
 		
 		int daysBetween = Math.abs(jd1 - jd2);
 		
-		System.out.println("There are '" + daysBetween + "' days between the these two dates. [" + 
+		System.out.println("\nThere are '" + daysBetween + "' days between the these two dates. [" + 
 				   		   day1 + "." + month1 + "." + year1 + " <-> " + day2 + "." + month2 + "." + year2 + "]");
 		
 	}
@@ -210,10 +210,10 @@ public class OurJulianDate implements JulianDate {
 	/**
 	 * A simple menu for the users input via the console. The user can decide which method he wants to trigger and use.
 	 */
-	private void menu() 
+	public void menu() 
 	{
 		System.out.println("\n----------MENU----------");
-		System.out.println("Choose what you want to do by typing the number\n"  +  "of the operation in the console.\n");
+		System.out.println("\nChoose what you want to do by typing the number\n"  +  "of the operation in the console.\n");
 		System.out.println("1 - Calculate the Julian Day Number for a Gregorian Date.");
 		System.out.println("2 - Calculate the number of days between two Dates.");
 		System.out.println("3 - Calculate the number of days you are alive.");
@@ -226,40 +226,49 @@ public class OurJulianDate implements JulianDate {
 		
 		int option = menuScanner.nextInt();
 	
-		switch (option) {
-			case 1: readDate();
-					System.out.println("\nYour Date: " + day + "." + month + "." + year);
-					System.out.println("Julian Day Number: " + calcJD(day, month, year, bc));
-					menu();
-					break;
-			
-			case 2: daysBetween();
-					menu();
-					break;
-					
-			case 3: daysAlive();
-					menu();	
-					break;
-					
-			case 4: yesterday();
-					menu();
-					break;
-			
-			case 5: tomorrow();
-					menu();	
-					break;
-			
-			case 6: break;
+		if (option >= 1 & option <= 6)
+		{
+			switch (option) {
+				case 1: readDate();
+						System.out.println("\nYour Date: " + day + "." + month + "." + year);
+						System.out.println("Julian Day Number: " + calcJD(day, month, year, bc));
+						menu();
+						break;
+				
+				case 2: daysBetween();
+						menu();
+						break;
+						
+				case 3: daysAlive();
+						menu();	
+						break;
+						
+				case 4: yesterday();
+						menu();
+						break;
+				
+				case 5: tomorrow();
+						menu();	
+						break;
+				
+				case 6: break;
+			}
 		}
+		else { menu(); }
 	}
 
-	public static void main(String[] args) {
-		
-		OurJulianDate ojd = new OurJulianDate(); 
-		ojd.ld = LocalDate.now();
-		ojd.numberScanner = new Scanner(System.in);
-		ojd.menuScanner = new Scanner(System.in);
+	public static void main(String[] args) 
+	{
+		OurJulianDate ojd = new OurJulianDate();
 		ojd.menu();
+	}
+	
+	public OurJulianDate() 
+	{
+		ld = LocalDate.now();
+		numberScanner = new Scanner(System.in);
+		menuScanner = new Scanner(System.in);
+		
 	}
 	
 	

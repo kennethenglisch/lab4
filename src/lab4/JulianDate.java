@@ -21,5 +21,7 @@ public interface JulianDate {
 	public void yesterday();
 	
 	public void tomorrow();	
+	
+	public void menu();
 }
 
